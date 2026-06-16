@@ -17,6 +17,8 @@
             color: #3A3A35;
             padding: 2rem 1.5rem;
             line-height: 1.5;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         .muji-container {
@@ -145,6 +147,7 @@
             border: 1px solid #F0EDE6;
             padding: 0.8rem 0.7rem;
             transition: all 0.15s;
+            border-radius: 6px;
         }
         .todo-card:hover {
             border-color: #E2DDD3;
@@ -627,6 +630,12 @@ footer {
             align-items: center;
             gap: 0.3rem;
         }
+        .progress-number .pending-count {
+            color: #C07C3A;
+        }
+        .progress-number .done-count {
+            color: #558B6E;
+        }
         .progress-sep {
             color: #C4A882;
             font-size: 1.2rem;
@@ -641,16 +650,270 @@ footer {
             height: 50px;
             background: #E2DDD3;
         }
-        @media (max-width: 800px) {
-            .progress-row { flex-direction: column; gap: 1rem; }
-            .progress-divider { width: 60px; height: 1px; }
+
+        /* ========== 移动端优化 ========== */
+        @media (max-width: 768px) {
+            body {
+                padding: 0.8rem 0.6rem;
+                font-size: 15px;
+            }
+
+            h1 {
+                font-size: 1.25rem;
+                letter-spacing: 0.5px;
+            }
+
+            .sub {
+                font-size: 0.7rem;
+            }
+
+            .greeting {
+                font-size: 0.75rem;
+                text-align: right;
+                margin-top: 0.3rem;
+            }
+
+            .title-section {
+                flex-direction: column;
+                align-items: flex-start;
+                padding-bottom: 0.8rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .motto {
+                padding: 0.8rem 1rem;
+                margin-bottom: 1.2rem;
+                border-radius: 10px;
+            }
+            .motto-text {
+                font-size: 0.8rem;
+                line-height: 1.6;
+            }
+            .motto::before {
+                font-size: 1.2rem;
+                top: 2px;
+                left: 8px;
+            }
+
+            /* 进度一览 */
+            .progress-overview {
+                padding: 1rem 0.8rem;
+                margin-bottom: 1.2rem;
+                border-radius: 12px;
+                background: linear-gradient(180deg, #FFFFFF 0%, #FDFCF9 100%);
+            }
+            .progress-title {
+                font-size: 0.85rem;
+                padding-bottom: 0.5rem;
+                margin-bottom: 0.6rem;
+                letter-spacing: 1px;
+            }
+            .progress-row {
+                flex-direction: row;
+                gap: 0;
+            }
+            .progress-item {
+                padding: 0.3rem 0;
+            }
+            .progress-divider {
+                width: 1px;
+                height: 40px;
+                background: #E8E2D6;
+            }
+            .progress-number {
+                font-size: 1.6rem;
+                gap: 0.2rem;
+            }
+            .progress-label {
+                font-size: 0.75rem;
+                margin-bottom: 0.2rem;
+            }
+            .progress-sub {
+                font-size: 0.65rem;
+            }
+
+            /* 双栏待办 -> 单栏堆叠 */
+            .dual-todo {
+                flex-direction: column;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            .todo-column {
+                min-width: auto;
+                padding: 1rem;
+                border-radius: 10px;
+                box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+            }
+            .column-title {
+                font-size: 0.9rem;
+                margin-bottom: 0.8rem;
+            }
+
+            /* 待办卡片 - 更大点击区域 */
+            .todo-card {
+                padding: 0.9rem 0.7rem;
+                margin-bottom: 0.7rem;
+                border-radius: 8px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            }
+            .todo-card:active {
+                background: #F5F2EC;
+                transform: scale(0.995);
+            }
+            .todo-title {
+                font-size: 0.88rem;
+            }
+            .todo-check {
+                width: 22px;
+                height: 22px;
+                margin-top: 1px;
+            }
+            .todo-meta {
+                margin-left: 30px;
+                margin-top: 6px;
+            }
+            .meta-item {
+                font-size: 0.68rem;
+                padding: 2px 8px;
+            }
+
+            /* 箭头按钮 - 更大 */
+            .arrow-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 0.7rem;
+            }
+
+            /* 添加区域 */
+            .add-todo-area {
+                margin-top: 0.8rem;
+            }
+            .inline-row input, .inline-row select {
+                padding: 10px 10px;
+                font-size: 16px; /* 防止iOS缩放 */
+                min-height: 42px;
+            }
+            .add-btn {
+                padding: 10px 16px;
+                font-size: 0.8rem;
+                min-height: 40px;
+                width: 100%;
+                border-radius: 6px;
+                background: #E8E2D6;
+            }
+            .add-btn:active {
+                background: #DDD6C8;
+            }
+
+            /* 四资本 -> 单栏 */
+            .quad-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+                margin-bottom: 1.5rem;
+            }
+            .quad-card {
+                padding: 1rem;
+                border-radius: 10px;
+                box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+            }
+            .quad-card:active {
+                background: #FAF8F5;
+            }
+            .quad-title {
+                font-size: 0.85rem;
+            }
+            .action-list li {
+                font-size: 0.78rem;
+                margin-bottom: 6px;
+            }
+
+            /* 周复盘 */
+            .weekly-review {
+                padding: 1rem;
+                margin-bottom: 1.2rem;
+                border-radius: 10px;
+            }
+            .review-textarea {
+                font-size: 16px; /* 防止iOS缩放 */
+                padding: 10px;
+                min-height: 100px;
+            }
+            .save-review-btn {
+                padding: 10px 18px;
+                font-size: 0.8rem;
+                min-height: 40px;
+                width: 100%;
+                border-radius: 6px;
+            }
+            .save-review-btn:active {
+                background: #DDD6C8;
+            }
+
+            /* 折叠区 */
+            .archive-section, .review-archive-section {
+                border-radius: 10px;
+                overflow: hidden;
+            }
+            .archive-header, .review-archive-header {
+                padding: 0.9rem 1rem;
+                min-height: 48px;
+            }
+            .archive-header:active, .review-archive-header:active {
+                background: #F5F2EC;
+            }
+            .archive-title, .review-archive-title {
+                font-size: 0.8rem;
+            }
+            .archive-list, .review-list {
+                padding: 0.3rem 0.8rem;
+            }
+            .archive-item {
+                font-size: 0.75rem;
+                padding: 8px 0;
+            }
+            .review-item {
+                padding: 10px 0;
+            }
+            .review-item-body {
+                font-size: 0.78rem;
+            }
+
+            /* 按钮 */
+            .clear-archive, .review-delete-btn {
+                padding: 6px 12px;
+                font-size: 0.7rem;
+                min-height: 32px;
+            }
+
+            footer {
+                margin-top: 1.5rem;
+                padding-top: 1rem;
+                font-size: 0.6rem;
+            }
         }
-        @media (max-width: 800px) {
-            body { padding: 1rem; }
-            .dual-todo { flex-direction: column; }
-            .quad-grid { grid-template-columns: 1fr; }
-            .mood-bar { flex-direction: column; }
-            .stats-bar { flex-direction: column; }
+
+        /* 超小屏优化 */
+        @media (max-width: 380px) {
+            body {
+                padding: 0.6rem 0.4rem;
+            }
+            h1 {
+                font-size: 1.1rem;
+            }
+            .inline-row {
+                flex-direction: column;
+            }
+            .inline-row input, .inline-row select {
+                width: 100%;
+                flex: none !important;
+            }
+            .todo-meta {
+                margin-left: 0;
+                margin-top: 8px;
+            }
+            .progress-number {
+                font-size: 1.3rem;
+            }
         }
         .empty-tip {
             color: #bfb9ae;
@@ -1122,8 +1385,9 @@ function getCurrentWeekRange() {
 
     // 周复盘
     function loadCurrentWeekReview() {
-        // 不再自动加载已有复盘内容，每次打开都是空白输入框
-        document.getElementById('weeklyReviewContent').value = '';
+        const weekKey = getCurrentWeekKey();
+        const existing = weeklyReviews.find(r => r.weekKey === weekKey);
+        document.getElementById('weeklyReviewContent').value = existing ? existing.content : '';
     }
 
     function saveWeeklyReview() {
@@ -1143,7 +1407,6 @@ function getCurrentWeekRange() {
             weeklyReviews.unshift(newRecord);
         }
         saveAll();
-        // 保存后清空输入框，不再记忆上周内容
         document.getElementById('weeklyReviewContent').value = '';
         renderReviewArchive();
         updateStats();
@@ -1258,10 +1521,12 @@ function getCurrentWeekRange() {
         const contentDiv = document.getElementById('archiveContent');
         contentDiv.classList.add('collapsed');
         document.getElementById('toggleIcon').innerHTML = '▶';
+        archiveCollapsed = true;
 
         const reviewContentDiv = document.getElementById('reviewArchiveContent');
         reviewContentDiv.classList.add('collapsed');
         document.getElementById('reviewToggleIcon').innerHTML = '▶';
+        reviewArchiveCollapsed = true;
 
         document.getElementById('addWorkTodo').addEventListener('click', addWork);
         document.getElementById('addLifeTodo').addEventListener('click', addLife);
