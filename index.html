@@ -94,42 +94,7 @@
             border: 1px solid #E2DDD3;
         }
 
-        /* 今日状态条 - ENFJ喜欢自我觉察 */
-        .mood-bar {
-            display: flex;
-            gap: 0.8rem;
-            margin-bottom: 2.2rem;
-            flex-wrap: wrap;
-        }
-        .mood-item {
-            flex: 1;
-            min-width: 140px;
-            background: #FFFFFF;
-            border: 1px solid #E9E5DC;
-            padding: 0.9rem 1rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.15s;
-            font-size: 0.8rem;
-            color: #6B6558;
-        }
-        .mood-item:hover {
-            border-color: #C4A882;
-            background: #FDFCF9;
-        }
-        .mood-item.active {
-            border-color: #C4A882;
-            background: #FAF6EF;
-            color: #8B6F4E;
-            font-weight: 500;
-        }
-        .mood-item .mood-emoji {
-            font-size: 1.3rem;
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        /* 双栏待办 */
+/* 双栏待办 */
         .dual-todo {
             display: flex;
             gap: 1.8rem;
@@ -613,39 +578,72 @@
             background: #F0EDE6;
         }
 
-        /* 成就统计条 - ENFJ喜欢被看见 */
-        .stats-bar {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-        .stat-card {
-            flex: 1;
-            min-width: 120px;
-            background: #FFFFFF;
-            border: 1px solid #E9E5DC;
-            padding: 1rem;
-            text-align: center;
-        }
-        .stat-number {
-            font-size: 1.6rem;
-            font-weight: 500;
-            color: #8B6F4E;
-        }
-        .stat-label {
-            font-size: 0.72rem;
-            color: #8F8A7E;
-            margin-top: 4px;
-        }
-
-        footer {
+footer {
             text-align: center;
             font-size: 0.65rem;
             color: #B3ADA0;
             margin-top: 2rem;
             padding-top: 1.2rem;
             border-top: 1px solid #EFECE5;
+        }
+        /* 进度一览 */
+        .progress-overview {
+            background: #FFFFFF;
+            border: 1px solid #E9E5DC;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .progress-title {
+            font-weight: 500;
+            font-size: 1rem;
+            color: #4A4740;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #EFECE5;
+            padding-bottom: 0.8rem;
+        }
+        .progress-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+        .progress-item {
+            flex: 1;
+            text-align: center;
+        }
+        .progress-label {
+            font-size: 0.85rem;
+            color: #6B6558;
+            margin-bottom: 0.4rem;
+        }
+        .progress-number {
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: #8B6F4E;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .progress-sep {
+            color: #C4A882;
+            font-size: 1.2rem;
+        }
+        .progress-sub {
+            font-size: 0.7rem;
+            color: #9B9587;
+            margin-top: 4px;
+        }
+        .progress-divider {
+            width: 1px;
+            height: 50px;
+            background: #E2DDD3;
+        }
+        @media (max-width: 800px) {
+            .progress-row { flex-direction: column; gap: 1rem; }
+            .progress-divider { width: 60px; height: 1px; }
         }
         @media (max-width: 800px) {
             body { padding: 1rem; }
@@ -661,6 +659,8 @@
             font-size: 0.8rem;
         }
     </style>
+<base target="_blank">
+<base target="_blank">
 <base target="_blank">
 <base target="_blank">
 </head>
@@ -681,23 +681,25 @@
         </div>
     </div>
 
-       <!-- 成就统计 -->
-    <div class="stats-bar">
-        <div class="stat-card">
-            <div class="stat-number" id="statWork">0</div>
-            <div class="stat-label">本周工作完成</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number" id="statLife">0</div>
-            <div class="stat-label">本周生活完成</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number" id="statReview">0</div>
-            <div class="stat-label">累计复盘周数</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number" id="statTotal">0</div>
-            <div class="stat-label">总计完成事项</div>
+       <!-- 进度一览 -->
+    <div class="progress-overview">
+        <div class="progress-title">📊 进度一览</div>
+        <div class="progress-row">
+            <div class="progress-item">
+                <div class="progress-label">💼 本周工作</div>
+                <div class="progress-number">
+                    <span id="statWorkPending">0</span> <span class="progress-sep">/</span> <span id="statWorkDone">0</span>
+                </div>
+                <div class="progress-sub">待完成 / 已完成</div>
+            </div>
+            <div class="progress-divider"></div>
+            <div class="progress-item">
+                <div class="progress-label">🌱 本周生活</div>
+                <div class="progress-number">
+                    <span id="statLifePending">0</span> <span class="progress-sep">/</span> <span id="statLifeDone">0</span>
+                </div>
+                <div class="progress-sub">待完成 / 已完成</div>
+            </div>
         </div>
     </div>
 
@@ -829,15 +831,12 @@
     let workArchive = [];
     let lifeArchive = [];
     let weeklyReviews = [];
-    let currentMood = '';
-
     // ---------- 本地存储 KEY ----------
     const STORAGE_WORK = 'pure_work_todos';
     const STORAGE_LIFE = 'pure_life_todos';
     const STORAGE_WORK_ARCHIVE = 'pure_work_archive';
     const STORAGE_LIFE_ARCHIVE = 'pure_life_archive';
     const STORAGE_WEEKLY_REVIEWS = 'pure_weekly_reviews';
-    const STORAGE_MOOD = 'pure_current_mood';
 
     function saveAll() {
         localStorage.setItem(STORAGE_WORK, JSON.stringify(workTodos));
@@ -845,7 +844,6 @@
         localStorage.setItem(STORAGE_WORK_ARCHIVE, JSON.stringify(workArchive));
         localStorage.setItem(STORAGE_LIFE_ARCHIVE, JSON.stringify(lifeArchive));
         localStorage.setItem(STORAGE_WEEKLY_REVIEWS, JSON.stringify(weeklyReviews));
-        if(currentMood) localStorage.setItem(STORAGE_MOOD, currentMood);
     }
 
     function loadAll() {
@@ -863,8 +861,6 @@
 
         const storedReviews = localStorage.getItem(STORAGE_WEEKLY_REVIEWS);
         weeklyReviews = storedReviews ? JSON.parse(storedReviews) : [];
-
-        currentMood = localStorage.getItem(STORAGE_MOOD) || '';
     }
 
     // 问候语
@@ -882,23 +878,7 @@
         if(el) el.innerText = text;
     }
 
-    // 心情选择
-    function initMoodBar() {
-        const items = document.querySelectorAll('.mood-item');
-        items.forEach(item => {
-            if(item.getAttribute('data-mood') === currentMood) {
-                item.classList.add('active');
-            }
-            item.addEventListener('click', () => {
-                items.forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
-                currentMood = item.getAttribute('data-mood');
-                localStorage.setItem(STORAGE_MOOD, currentMood);
-            });
-        });
-    }
-
-    function getCurrentWeekRange() {
+function getCurrentWeekRange() {
         const now = new Date();
         const day = now.getDay();
         const diffToMonday = day === 0 ? 6 : day - 1;
@@ -927,16 +907,18 @@
         monday.setHours(0,0,0,0);
         monday.setDate(now.getDate() - diffToMonday);
 
-        const weekWork = workArchive.filter(a => new Date(a.completedAt) >= monday).length;
-        const weekLife = lifeArchive.filter(a => new Date(a.completedAt) >= monday).length;
+        const weekWorkDone = workArchive.filter(a => new Date(a.completedAt) >= monday).length;
+        const weekLifeDone = lifeArchive.filter(a => new Date(a.completedAt) >= monday).length;
+        const weekWorkPending = workTodos.filter(t => !t.completed).length;
+        const weekLifePending = lifeTodos.filter(t => !t.completed).length;
 
-        document.getElementById('statWork').innerText = weekWork;
-        document.getElementById('statLife').innerText = weekLife;
-        document.getElementById('statReview').innerText = weeklyReviews.length;
-        document.getElementById('statTotal').innerText = workArchive.length + lifeArchive.length;
+        document.getElementById('statWorkPending').innerText = weekWorkPending;
+        document.getElementById('statWorkDone').innerText = weekWorkDone;
+        document.getElementById('statLifePending').innerText = weekLifePending;
+        document.getElementById('statLifeDone').innerText = weekLifeDone;
 
-        document.getElementById('workCount').innerText = workTodos.filter(t => !t.completed).length + ' 待办';
-        document.getElementById('lifeCount').innerText = lifeTodos.filter(t => !t.completed).length + ' 待办';
+        document.getElementById('workCount').innerText = weekWorkPending + ' 待办';
+        document.getElementById('lifeCount').innerText = weekLifePending + ' 待办';
     }
 
     // 渲染待办
@@ -1265,7 +1247,6 @@
     function init() {
         loadAll();
         setGreeting();
-        initMoodBar();
         document.getElementById('currentWeekRange').innerText = getCurrentWeekRange();
         renderTodos();
         renderArchives();
@@ -1274,7 +1255,8 @@
         initArchiveTabs();
 
         const contentDiv = document.getElementById('archiveContent');
-        contentDiv.classList.remove('collapsed');
+        contentDiv.classList.add('collapsed');
+        document.getElementById('toggleIcon').innerHTML = '▶';
 
         const reviewContentDiv = document.getElementById('reviewArchiveContent');
         reviewContentDiv.classList.add('collapsed');
