@@ -651,6 +651,24 @@ footer {
             background: #E2DDD3;
         }
 
+        /* datetime-local placeholder */
+        input[type="datetime-local"]:not(:focus):not(:valid):before {
+            content: attr(placeholder);
+            color: #9B9587;
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            font-size: 0.75rem;
+        }
+        input[type="datetime-local"] {
+            position: relative;
+        }
+        input[type="datetime-local"]:focus:before,
+        input[type="datetime-local"]:valid:before {
+            content: '';
+        }
         /* ========== 移动端优化 ========== */
         @media (max-width: 768px) {
             body {
@@ -927,6 +945,7 @@ footer {
 <base target="_blank">
 <base target="_blank">
 <base target="_blank">
+<base target="_blank">
 </head>
 <body>
 <div class="muji-container">
@@ -977,13 +996,12 @@ footer {
             <div id="workTodoList"></div>
             <div class="add-todo-area">
                 <div class="inline-row">
-                    <input type="text" id="workTitle" placeholder="任务标题" style="flex:2; min-width:120px;">
+                    <input type="text" id="workTitle" placeholder="📋 任务标题" style="flex:1.5; min-width:90px; font-size:0.75rem;">
                 </div>
                 <div class="inline-row">
-                    <input type="text" id="workContact" placeholder="👤 对接人 " style="flex:1; min-width:80px;">
-                    <input type="date" id="workDue"  placeholder="📅 日期 " style="flex:1; min-width:100px;">
-                    <input type="time" id="workTime"placeholder="⏰ 时间 "  class="time-input" placeholder="时间">
-                    <select id="workPriority" style="flex:0.8; min-width:70px;">
+                    <input type="text" id="workContact" placeholder="👤 对接人" style="flex:0.75; min-width:60px; font-size:0.75rem;">
+                    <input type="datetime-local" id="workDueTime" placeholder="⏰ DDL" style="flex:1.5; min-width:75px; font-size:0.75rem;">
+                    <select id="workPriority" style="flex:0.6; min-width:52px; font-size:0.75rem;">
                         <option value="高">🔴 高</option>
                         <option value="中" selected>🟠 中</option>
                         <option value="低">🟢 低</option>
@@ -1003,13 +1021,12 @@ footer {
             <div id="lifeTodoList"></div>
             <div class="add-todo-area">
                 <div class="inline-row">
-                    <input type="text" id="lifeTitle" placeholder="任务标题" style="flex:2; min-width:120px;">
+                    <input type="text" id="lifeTitle" placeholder="📋 任务标题" style="flex:1.5; min-width:90px; font-size:0.75rem;">
                 </div>
                 <div class="inline-row">
-                    <input type="text" id="lifeContact" placeholder="👤 对接人 " style="flex:1; min-width:80px;">
-                    <input type="date" id="lifeDue"  placeholder="📅 日期 " style="flex:1; min-width:100px;">
-                    <input type="time" id="lifeTime" placeholder="⏰ 时间 " class="time-input" placeholder="时间">
-                    <select id="lifePriority" style="flex:0.8; min-width:70px;">
+                    <input type="text" id="lifeContact" placeholder="👤 对接人" style="flex:0.75; min-width:60px; font-size:0.75rem;">
+                    <input type="datetime-local" id="lifeDueTime" placeholder="⏰ DDL" style="flex:1.5; min-width:75px; font-size:0.75rem;">
+                    <select id="lifePriority" style="flex:0.6; min-width:52px; font-size:0.75rem;">
                         <option value="高">🔴 高</option>
                         <option value="中" selected>🟠 中</option>
                         <option value="低">🟢 低</option>
@@ -1354,32 +1371,40 @@ function getCurrentWeekRange() {
     function addWork() {
         const title = document.getElementById('workTitle').value.trim();
         if(!title) return alert("请输入工作事项");
-        const dueDate = document.getElementById('workDue').value;
-        const dueTime = document.getElementById('workTime').value;
+        const dueDateTime = document.getElementById('workDueTime').value;
+        let dueDate = '', dueTime = '';
+        if(dueDateTime) {
+            const parts = dueDateTime.split('T');
+            dueDate = parts[0] || '';
+            dueTime = parts[1] || '';
+        }
         const priority = document.getElementById('workPriority').value;
         const contact = document.getElementById('workContact').value.trim();
         const newId = Date.now() + Math.floor(Math.random()*10000);
         workTodos.push({ id: newId, title, dueDate, dueTime, priority, contact, completed: false });
         saveAll();
         document.getElementById('workTitle').value = '';
-        document.getElementById('workDue').value = '';
-        document.getElementById('workTime').value = '';
+        document.getElementById('workDueTime').value = '';
         document.getElementById('workContact').value = '';
         renderTodos();
     }
     function addLife() {
         const title = document.getElementById('lifeTitle').value.trim();
         if(!title) return alert("请输入生活事项");
-        const dueDate = document.getElementById('lifeDue').value;
-        const dueTime = document.getElementById('lifeTime').value;
+        const dueDateTime = document.getElementById('lifeDueTime').value;
+        let dueDate = '', dueTime = '';
+        if(dueDateTime) {
+            const parts = dueDateTime.split('T');
+            dueDate = parts[0] || '';
+            dueTime = parts[1] || '';
+        }
         const priority = document.getElementById('lifePriority').value;
         const contact = document.getElementById('lifeContact').value.trim();
         const newId = Date.now() + Math.floor(Math.random()*10000);
         lifeTodos.push({ id: newId, title, dueDate, dueTime, priority, contact, completed: false });
         saveAll();
         document.getElementById('lifeTitle').value = '';
-        document.getElementById('lifeDue').value = '';
-        document.getElementById('lifeTime').value = '';
+        document.getElementById('lifeDueTime').value = '';
         document.getElementById('lifeContact').value = '';
         renderTodos();
     }
