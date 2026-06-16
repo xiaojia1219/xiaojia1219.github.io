@@ -663,6 +663,7 @@ footer {
 <base target="_blank">
 <base target="_blank">
 <base target="_blank">
+<base target="_blank">
 </head>
 <body>
 <div class="muji-container">
@@ -1121,9 +1122,8 @@ function getCurrentWeekRange() {
 
     // 周复盘
     function loadCurrentWeekReview() {
-        const weekKey = getCurrentWeekKey();
-        const existing = weeklyReviews.find(r => r.weekKey === weekKey);
-        document.getElementById('weeklyReviewContent').value = existing ? existing.content : '';
+        // 不再自动加载已有复盘内容，每次打开都是空白输入框
+        document.getElementById('weeklyReviewContent').value = '';
     }
 
     function saveWeeklyReview() {
@@ -1143,6 +1143,7 @@ function getCurrentWeekRange() {
             weeklyReviews.unshift(newRecord);
         }
         saveAll();
+        // 保存后清空输入框，不再记忆上周内容
         document.getElementById('weeklyReviewContent').value = '';
         renderReviewArchive();
         updateStats();
