@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>王小佳 | 成长罗盘 · 工作生活双轨</title>
+    <title>成长罗盘 · 工作生活双轨</title>
     <style>
         * {
             margin: 0;
@@ -932,16 +932,16 @@ footer {
 <div class="muji-container">
     <div class="title-section">
         <div>
-            <h1>🌿 成长罗盘 · 工作生活双轨</h1>
+            <h1>🌤️ 小佳的轨道 · 工作与生活</h1>
             <div class="sub">身体 · 认知 · 作品 · 职业 | 在连接中成长，在行动中发光</div>
         </div>
-        <div class="greeting" id="greetingText">今天也是充满可能性的一天 ✨</div>
+        <div class="greeting" id="greetingText">今天也是充满可能性的一天 🌤️</div>
     </div>
 
     <!-- 激励语 -->
     <div class="motto">
         <div class="motto-text">
-            🌿 待人、接物、处事，<span class="highlight">掌握第一性原理</span>——确定目标后，行动专注，提高效率，温暖连接
+            🌿 待人、接物、处事，<span class="highlight">掌握第一性原理</span>——确定目标后，专注效率，温暖连接🫶
         </div>
     </div>
 
@@ -981,8 +981,8 @@ footer {
                 </div>
                 <div class="inline-row">
                     <input type="text" id="workContact" placeholder="👤 对接人 " style="flex:1; min-width:80px;">
-                    <input type="date" id="workDue" style="flex:1; min-width:100px;">
-                    <input type="time" id="workTime" class="time-input" placeholder="时间">
+                    <input type="date" id="workDue"  placeholder="📅 日期 " style="flex:1; min-width:100px;">
+                    <input type="time" id="workTime"placeholder="⏰ 时间 "  class="time-input" placeholder="时间">
                     <select id="workPriority" style="flex:0.8; min-width:70px;">
                         <option value="高">🔴 高</option>
                         <option value="中" selected>🟠 中</option>
@@ -1007,8 +1007,8 @@ footer {
                 </div>
                 <div class="inline-row">
                     <input type="text" id="lifeContact" placeholder="👤 对接人 " style="flex:1; min-width:80px;">
-                    <input type="date" id="lifeDue" style="flex:1; min-width:100px;">
-                    <input type="time" id="lifeTime" class="time-input" placeholder="时间">
+                    <input type="date" id="lifeDue"  placeholder="📅 日期 " style="flex:1; min-width:100px;">
+                    <input type="time" id="lifeTime" placeholder="⏰ 时间 " class="time-input" placeholder="时间">
                     <select id="lifePriority" style="flex:0.8; min-width:70px;">
                         <option value="高">🔴 高</option>
                         <option value="中" selected>🟠 中</option>
@@ -1133,12 +1133,12 @@ footer {
         const el = document.getElementById('greetingText');
         let text = '';
         if(hour < 6) text = '夜深了，早点休息 🌙';
-        else if(hour < 9) text = '早安，新的一天充满可能 ☀️';
+        else if(hour < 8) text = '早安，新的一天充满可能 ☀️';
         else if(hour < 12) text = '上午好，专注的能量正在汇聚 ⚡';
         else if(hour < 14) text = '午后时光，适合深度思考 🍃';
         else if(hour < 18) text = '下午好，保持节奏，稳步推进 🎯';
-        else if(hour < 21) text = '傍晚了，回顾今天的收获吧 🌆';
-        else text = '晚安，今天的你也很棒 ✨';
+        else if(hour < 20) text = '傍晚了，回顾今天的收获吧 🌆';
+        else text = '晚间时刻也可以继续进步！今天的你也很棒 ✨';
         if(el) el.innerText = text;
     }
 
@@ -1207,9 +1207,10 @@ function getCurrentWeekRange() {
             else if(todo.priority === '中') priorityClass = 'priority-medium';
             else priorityClass = 'priority-low';
             const contactText = todo.contact || '';
-            const contactHtml = contactText ? `<span class="meta-item contact-tag">👤 ${escapeHtml(contactText)}</span>` : '';
+            const contactHtml = contactText ? `<span class="meta-item contact-tag" title="对接人: ${escapeHtml(contactText)}">&#128100; ${escapeHtml(contactText)}</span>` : '';
 
-            const timeText = todo.dueTime ? ` ⏰ ${todo.dueTime}` : '';
+            const timeText = todo.dueTime ? ` &#128336; ${todo.dueTime}` : '';
+            const priorityDot = todo.priority === '高' ? '&#128308;' : (todo.priority === '中' ? '&#128992;' : '&#128994;');
             html += `
                 <div class="todo-card" data-id="${todo.id}" data-type="${type}">
                     <div class="todo-header">
@@ -1218,14 +1219,14 @@ function getCurrentWeekRange() {
                             <span class="todo-title-text">${escapeHtml(todo.title)}</span>
                         </div>
                         <div class="todo-arrows">
-                            <button class="arrow-btn arrow-up" data-id="${todo.id}" data-type="${type}" title="上移">▲</button>
-                            <button class="arrow-btn arrow-down" data-id="${todo.id}" data-type="${type}" title="下移">▼</button>
+                            <button class="arrow-btn arrow-up" data-id="${todo.id}" data-type="${type}" title="上移">&#9650;</button>
+                            <button class="arrow-btn arrow-down" data-id="${todo.id}" data-type="${type}" title="下移">&#9660;</button>
                         </div>
                     </div>
                     <div class="todo-meta">
                         ${contactHtml}
-                        <span class="meta-item">📅 ${dueText}${timeText}</span>
-                        <span class="meta-item ${priorityClass}">⚡ ${todo.priority}</span>
+                        <span class="meta-item">&#128197; ${dueText}${timeText}</span>
+                        <span class="meta-item ${priorityClass}" title="优先级: ${todo.priority}">${priorityDot} ${todo.priority}</span>
                     </div>
                 </div>
             `;
@@ -1385,9 +1386,8 @@ function getCurrentWeekRange() {
 
     // 周复盘
     function loadCurrentWeekReview() {
-        const weekKey = getCurrentWeekKey();
-        const existing = weeklyReviews.find(r => r.weekKey === weekKey);
-        document.getElementById('weeklyReviewContent').value = existing ? existing.content : '';
+        // 每次打开都显示空白，不加载历史内容，让用户自由书写
+        document.getElementById('weeklyReviewContent').value = '';
     }
 
     function saveWeeklyReview() {
